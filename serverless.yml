@@ -1,0 +1,41 @@
+frameworkVersion: ">=3.25.0"
+
+service: yoga-cookie
+
+plugins:
+    - serverless-webpack
+
+custom:
+    webpack:
+        includeModules: true
+        packager: yarn
+        packagerOptions:
+            ignoreScripts: true
+
+provider:
+    name: aws
+    runtime: nodejs18.x
+    profile: default
+    region: eu-west-1
+    versionFunctions: false
+    deploymentMethod: direct
+    architecture: arm64
+
+functions:
+    handler1:
+        handler: handler1.handler
+        events:
+            -
+                http:
+                    path: handler1
+                    method: post
+                    cors: true
+
+    handler2:
+        handler: handler2.handler
+        events:
+            -
+                http:
+                    path: handler2
+                    method: post
+                    cors: true
